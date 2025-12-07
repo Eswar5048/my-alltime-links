@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Designer Eswar - 100 Days of AE Resources</title>
+    <style>
+        :root {
+            --color-primary: #404040;
+            --color-secondary: #e5e5e5;
+            --color-accent: #888888;
+            --color-bg: #0a0a0a;
+            --color-surface: #1a1a1a;
+            --color-text: #ffffff;
+            --color-text-secondary: #b3b3b3;
+            --color-border: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 25%, #2a2a2a 50%, #1a1a1a 75%, #0a0a0a 100%);
+            color: var(--color-text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background: rgba(15, 15, 30, 0.98);
+            border-bottom: 1px solid var(--color-border);
+            padding: 25px 20px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .profile-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .profile-avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #404040, #888888);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 45px;
+            margin: 0 auto 15px;
+            box-shadow: 0 0 30px rgba(64, 64, 64, 0.4);
+            border: 3px solid #888888;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .profile-name {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #888888, #e5e5e5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .profile-title {
+            color: var(--color-text-secondary);
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .profile-desc {
+            color: var(--color-text-secondary);
+            font-size: 14px;
+            font-style: italic;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px 16px;
+        }
+
+        /* Search Bar */
+        .search-container {
+            margin-bottom: 40px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 12px 18px;
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 25px;
+            color: var(--color-text);
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .search-input::placeholder {
+            color: var(--color-text-secondary);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--color-accent);
+            background: rgba(0, 212, 255, 0.05);
+        }
+
+        .search-btn {
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #404040, #888888);
+            border: none;
+            border-radius: 25px;
+            color: var(--color-text);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(136, 136, 136, 0.3);
+        }
+
+        .results-count {
+            color: var(--color-text-secondary);
+            font-size: 12px;
+            padding: 12px 18px;
+            background: var(--color-surface);
+            border-radius: 20px;
+            border: 1px solid var(--color-border);
+        }
+
+        /* Category Navigation */
+        .category-nav {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 35px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .category-pill {
+            padding: 10px 18px;
+            background: linear-gradient(135deg, rgba(64, 64, 64, 0.2), rgba(136, 136, 136, 0.15));
+            border: 1.5px solid var(--color-border);
+            border-radius: 25px;
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .category-pill:hover,
+        .category-pill.active {
+            border-color: var(--color-accent);
+            background: linear-gradient(135deg, #404040, #888888);
+            color: var(--color-text);
+            box-shadow: 0 8px 20px rgba(136, 136, 136, 0.3);
+        }
+
+        /* Day Sections */
+        .day-section {
+            margin-bottom: 35px;
+            animation: slideIn 0.4s ease;
+        }
+
+        .day-section.hidden {
+            display: none;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .day-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+            padding: 0 10px;
+        }
+
+        .day-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-text);
+        }
+
+        .category-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 10px;
+            background: linear-gradient(135deg, rgba(255, 107, 157, 0.2), rgba(0, 212, 255, 0.15));
+            border: 1px solid rgba(255, 107, 157, 0.4);
+            border-radius: 15px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--color-secondary);
+        }
+
+        .category-badge.design {
+            background: linear-gradient(135deg, rgba(106, 76, 230, 0.25), rgba(0, 212, 255, 0.15));
+            border-color: rgba(106, 76, 230, 0.4);
+            color: #a78bfa;
+        }
+
+        .category-badge.ae {
+            background: linear-gradient(135deg, rgba(255, 107, 157, 0.25), rgba(255, 107, 157, 0.15));
+            border-color: rgba(255, 107, 157, 0.4);
+            color: #ff6b9d;
+        }
+
+        .category-badge.tools {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.25), rgba(34, 197, 94, 0.15));
+            border-color: rgba(34, 197, 94, 0.4);
+            color: #86efac;
+        }
+
+        .category-badge.coming {
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.25), rgba(249, 115, 22, 0.15));
+            border-color: rgba(249, 115, 22, 0.4);
+            color: #fdba74;
+        }
+
+        /* Category Navigation */
+        .category-nav {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 35px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .category-pill {
+            padding: 10px 18px;
+            background: linear-gradient(135deg, rgba(106, 76, 230, 0.2), rgba(0, 212, 255, 0.15));
+            border: 1.5px solid var(--color-border);
+            border-radius: 25px;
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .category-pill:hover,
+        .category-pill.active {
+            border-color: var(--color-accent);
+            background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+            color: var(--color-text);
+            box-shadow: 0 8px 20px rgba(106, 76, 230, 0.3);
+        }
+
+        /* Day Sections */
+        .day-section {
+            margin-bottom: 35px;
+            animation: slideIn 0.4s ease;
+        }
+
+        .day-section.hidden {
+            display: none;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .day-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+            padding: 0 10px;
+        }
+
+        .day-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-text);
+        }
+
+        .category-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 10px;
+            background: linear-gradient(135deg, rgba(255, 107, 157, 0.2), rgba(0, 212, 255, 0.15));
+            border: 1px solid rgba(255, 107, 157, 0.4);
+            border-radius: 15px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--color-secondary);
+        }
+
+        .category-badge.design {
+            background: linear-gradient(135deg, rgba(106, 76, 230, 0.25), rgba(0, 212, 255, 0.15));
+            border-color: rgba(106, 76, 230, 0.4);
+            color: #a78bfa;
+        }
+
+        .category-badge.ae {
+            background: linear-gradient(135deg, rgba(255, 107, 157, 0.25), rgba(255, 107, 157, 0.15));
+            border-color: rgba(255, 107, 157, 0.4);
+            color: #ff6b9d;
+        }
+
+        .category-badge.tools {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.25), rgba(34, 197, 94, 0.15));
+            border-color: rgba(34, 197, 94, 0.4);
+            color: #86efac;
+        }
+
+        .category-badge.coming {
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.25), rgba(249, 115, 22, 0.15));
+            border-color: rgba(249, 115, 22, 0.4);
+            color: #fdba74;
+        }
+
+        .day-description {
+            color: var(--color-text-secondary);
+            font-size: 14px;
+            margin-bottom: 15px;
+            padding: 0 10px;
+            line-height: 1.5;
+        }
+
+        /* Link Buttons Grid */
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .link-btn {
+            padding: 12px 16px;
+            background: linear-gradient(135deg, rgba(106, 76, 230, 0.15), rgba(0, 212, 255, 0.1));
+            border: 1.5px solid var(--color-border);
+            border-radius: 8px;
+            color: var(--color-text);
+            text-decoration: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .link-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .link-btn:hover::before {
+            left: 100%;
+        }
+
+        .link-btn:hover {
+            border-color: var(--color-accent);
+            background: linear-gradient(135deg, rgba(106, 76, 230, 0.25), rgba(0, 212, 255, 0.2));
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(106, 76, 230, 0.2);
+        }
+
+        .link-btn-icon {
+            font-size: 16px;
+        }
+
+        /* Contact Section */
+        .tools-section {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 15px;
+            padding: 28px 20px;
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .tools-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--color-text);
+        }
+
+        .tools-subtitle {
+            color: var(--color-text-secondary);
+            margin-bottom: 18px;
+            font-size: 12px;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+        }
+
+        .tool-card {
+            background: linear-gradient(135deg, rgba(64, 64, 64, 0.2), rgba(136, 136, 136, 0.1));
+            border: 1.5px solid var(--color-border);
+            border-radius: 12px;
+            padding: 20px 15px;
+            transition: all 0.3s ease;
+            cursor: default;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tool-card:hover {
+            border-color: var(--color-accent);
+            background: linear-gradient(135deg, rgba(64, 64, 64, 0.4), rgba(136, 136, 136, 0.2));
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(136, 136, 136, 0.2);
+        }
+
+        .tool-icon {
+            font-size: 32px;
+        }
+
+        .tool-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--color-surface);
+            border-top: 1px solid var(--color-border);
+            padding: 20px;
+            text-align: center;
+            color: var(--color-text-secondary);
+            font-size: 13px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+
+        .footer-icon {
+            width: 40px;
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-radius: 50%;
+            background: rgba(136, 136, 136, 0.15);
+            border: 1.5px solid var(--color-border);
+        }
+
+        .footer-icon svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .footer-icon:hover {
+            transform: translateY(-4px) scale(1.1);
+            border-color: var(--color-accent);
+            background: rgba(136, 136, 136, 0.3);
+            box-shadow: 0 8px 20px rgba(136, 136, 136, 0.2);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .profile-avatar {
+                width: 75px;
+                height: 75px;
+                font-size: 38px;
+            }
+
+            .profile-name {
+                font-size: 20px;
+            }
+
+            .profile-title {
+                font-size: 14px;
+            }
+
+            .profile-desc {
+                font-size: 12px;
+            }
+
+            .container {
+                padding: 18px 12px;
+            }
+
+            .links-grid {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .search-container {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .contact-buttons {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
+            }
+
+            .contact-section {
+                padding: 18px 14px;
+            }
+
+            .day-title {
+                font-size: 14px;
+                margin-bottom: 10px;
+            }
+
+            .day-description {
+                font-size: 12px;
+                margin-bottom: 10px;
+            }
+
+            .link-btn {
+                padding: 10px 12px;
+                font-size: 11px;
+                gap: 4px;
+            }
+
+            .link-btn-icon {
+                font-size: 14px;
+            }
+
+            .contact-btn {
+                padding: 8px 10px;
+                font-size: 10px;
+                gap: 4px;
+            }
+
+            .search-input {
+                padding: 10px 14px;
+                font-size: 12px;
+            }
+
+            .search-btn {
+                padding: 10px 18px;
+                font-size: 12px;
+            }
+
+            .results-count {
+                font-size: 10px;
+                padding: 8px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="profile-container">
+            <div class="profile-avatar" style="background-image: url('https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/0ede8129-72e1-4eca-a5ef-10053cfe1365');"></div>
+            <h1 class="profile-name">designer_eswar ✨</h1>
+            <p class="profile-title">Visual Designer | Video Editor | Content Creator</p>
+            <p class="profile-desc">Helping you master the art of digital creation.</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Search Bar -->
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Find resources, assets, tutorials...">
+            <button class="search-btn">Search</button>
+            <span class="results-count">6 RESOURCES</span>
+        </div>
+
+        <!-- Category Filter Navigation -->
+        <div class="category-nav">
+            <button class="category-pill active" data-category="ae">🎬 After Effects</button>
+            <button class="category-pill" data-category="tools">⚙️ Tools</button>
+        </div>
+
+        <!-- Day 1/100 -->
+        <div class="day-section" data-category="ae">
+            <div class="day-header">
+                <div class="day-title">Day 1/100</div>
+                <span class="category-badge ae">🎬 After Effects</span>
+            </div>
+            <div class="links-grid">
+                <a href="https://sourceforge.net/projects/qbittorrent/files/qbittorrent-win32/" target="_blank" class="link-btn">
+                    <span class="link-btn-icon">⬇️</span>
+                    <span>QB Torrent</span>
+                </a>
+                <a href="https://filecr.com/windows/adobe-after-effects-0038" target="_blank" class="link-btn">
+                    <span class="link-btn-icon">🎬</span>
+                    <span>After Effects</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Day 2/100 -->
+        <div class="day-section" data-category="ae">
+            <div class="day-header">
+                <div class="day-title">Day 2/100</div>
+                <span class="category-badge ae">🎬 After Effects</span>
+            </div>
+            <div class="day-description">Here the youtube playlist</div>
+            <div class="links-grid">
+                <a href="https://youtube.com/playlist?list=PL0RfwdE_qlKJewcjPmglpPXdFLLc9qFTt&si=e5FTk0WsYusoSeCO" target="_blank" class="link-btn">
+                    <span class="link-btn-icon">▶️</span>
+                    <span>YOUTUBE</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Day 3/100 -->
+        <div class="day-section" data-category="ae">
+            <div class="day-header">
+                <div class="day-title">Day 3/100</div>
+                <span class="category-badge ae">🎬 After Effects</span>
+            </div>
+            <div class="links-grid">
+                <a href="https://drive.google.com/drive/folders/1EI3OL4HcOv2rnSxKHnREbm8BWwQJsYWF?usp=drive_link" target="_blank" class="link-btn">
+                    <span class="link-btn-icon">🎵</span>
+                    <span>SFX pack</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Day 4/100 -->
+        <div class="day-section" data-category="ae">
+            <div class="day-header">
+                <div class="day-title">Day 4/100</div>
+                <span class="category-badge ae">🎬 After Effects</span>
+            </div>
+            <div class="day-description">This will help you very much</div>
+            <div class="links-grid">
+                <a href="https://drive.google.com/drive/folders/13KLb5Ai2fu9JZi5cHBPK9O-D2L7etKNh?usp=drive_link" target="_blank" class="link-btn">
+                    <span class="link-btn-icon">⭐</span>
+                    <span>Presets</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Day 5/100 -->
+        <div class="day-section" data-category="ae">
+            <div class="day-header">
+                <div class="day-title">Day 5/100</div>
+                <span class="category-badge ae">🎬 After Effects</span>
+            </div>
+            <div class="links-grid">
+                <a href="https://www.myinstants.com/en/index/in/" target="_blank" class="link-btn">
+                    <span class="link-btn-icon">😂</span>
+                    <span>MEME sounds</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Day 6/100 -->
+        <div class="day-section" data-category="ae">
+            <div class="day-header">
+                <div class="day-title">Day 6/100</div>
+                <span class="category-badge ae">🎬 After Effects</span>
+            </div>
+            <div class="links-grid">
+                <a href="https://drive.google.com/drive/folders/19JM_D4n06MJvkb-9xfod1v2ZgdJ119sH?usp=drive_link" target="_blank" class="link-btn">
+                    <span class="link-btn-icon">🔧</span>
+                    <span>Plugin</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Tools Section -->
+        <div class="tools-section" id="tools-section">
+            <h2 class="tools-title">⚙️ TOOLS & SOFTWARE</h2>
+            <p class="tools-subtitle">My essential tools for content creation</p>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-icon">🎬</div>
+                    <div class="tool-name">After Effects</div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">🎨</div>
+                    <div class="tool-name">Photoshop</div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">🎥</div>
+                    <div class="tool-name">DaVinci Resolve</div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">✨</div>
+                    <div class="tool-name">Canva</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="https://www.instagram.com/designer_eswar?igsh=MXVhazIzYjN2aXBvMA==" target="_blank" class="footer-icon" title="Instagram">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="color: #E4405F;">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.057-1.645.069-4.849.069-3.204 0-3.584-.012-4.849-.069-3.259-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1 1 12.324 0 6.162 6.162 0 0 1-12.324 0zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm4.965-10.322a1.44 1.44 0 1 1 2.881.001 1.44 1.44 0 0 1-2.881-.001z"/>
+                </svg>
+            </a>
+            <a href="https://www.facebook.com/profile.php?id=61580443846557" target="_blank" class="footer-icon" title="Facebook">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="color: #1877F2;">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+            </a>
+            <a href="mailto:designereswar@gmail.com" class="footer-icon" title="Email">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: #888888;">
+                    <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                </svg>
+            </a>
+        </div>
+        <p>© 2025 designer_eswar. All rights reserved.</p>
+        <p>100 Days of After Effects Resources • Building Creators Daily</p>
+    </footer>
+
+    <script>
+        // Category filtering
+        const categoryPills = document.querySelectorAll('.category-pill');
+        const daySections = document.querySelectorAll('.day-section');
+
+        categoryPills.forEach(pill => {
+            pill.addEventListener('click', () => {
+                const category = pill.getAttribute('data-category');
+                
+                // Update active pill
+                categoryPills.forEach(p => p.classList.remove('active'));
+                pill.classList.add('active');
+                
+                // Filter sections
+                const toolsSection = document.getElementById('tools-section');
+                daySections.forEach(section => {
+                    const sectionCategory = section.getAttribute('data-category');
+                    if (sectionCategory === category) {
+                        section.classList.remove('hidden');
+                    } else {
+                        section.classList.add('hidden');
+                    }
+                });
+                
+                // Toggle tools section
+                if (category === 'tools') {
+                    toolsSection.style.display = 'block';
+                } else {
+                    toolsSection.style.display = 'none';
+                }
+
+                // Update results count
+                const visibleCount = document.querySelectorAll('.day-section:not(.hidden)').length;
+                document.querySelector('.results-count').textContent = visibleCount + ' RESOURCES';
+            });
+        });
+
+        // Search functionality
+        const searchInput = document.querySelector('.search-input');
+        const searchBtn = document.querySelector('.search-btn');
+
+        function performSearch() {
+            const query = searchInput.value.toLowerCase().trim();
+            let visibleCount = 0;
+
+            if (query === '') {
+                daySections.forEach(section => {
+                    section.classList.remove('hidden');
+                    visibleCount++;
+                });
+            } else {
+                daySections.forEach(section => {
+                    const title = section.querySelector('.day-title').textContent.toLowerCase();
+                    const description = section.querySelector('.day-description')?.textContent.toLowerCase() || '';
+                    const buttons = Array.from(section.querySelectorAll('.link-btn')).map(btn => btn.textContent.toLowerCase());
+                    
+                    const matchesSearch = title.includes(query) || 
+                                        description.includes(query) || 
+                                        buttons.some(btn => btn.includes(query));
+                    
+                    if (matchesSearch) {
+                        section.classList.remove('hidden');
+                        visibleCount++;
+                    } else {
+                        section.classList.add('hidden');
+                    }
+                });
+            }
+
+            document.querySelector('.results-count').textContent = visibleCount + ' RESOURCES';
+        }
+
+        searchBtn.addEventListener('click', performSearch);
+        searchInput.addEventListener('keyup', performSearch);
+
+        // Link button click tracking
+        document.querySelectorAll('.link-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const href = btn.getAttribute('href');
+                if (href && href.startsWith('#')) {
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
